@@ -1,0 +1,83 @@
+﻿@model IEnumerable<BSWebApp.Models.Reservation>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_ResLayout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+
+    @if (User.IsInRole("Staff") || User.IsInRole("Admin"))
+    {
+        <a asp-action="PhoneResDetails">Create New Reservation for Member</a>
+    }
+</p>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Notes
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+               Sitting
+            </th>
+            <th>
+                Guest
+            </th>
+            <th>
+               Status
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.FirstName) @Html.DisplayFor(modelItem => item.User.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Notes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReservationDateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sitting.SittingType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GuestCount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @if (User.IsInRole("Staff") || User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.ReservationsId">Edit</a>
+                        <a asp-action="AssignTables" asp-route-id="@item.ReservationsId">Confirm</a>
+                    }
+                    <a asp-action="Details" asp-route-id="@item.ReservationsId">Details</a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <input type="submit" value="Cancel" class="btn btn-danger" />
+                        
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

@@ -1,0 +1,26 @@
+﻿@model BSWebApp.Models.Reservation
+
+@{
+    ViewData["Title"] = "Confirmation";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Use the appropriate layout
+}
+
+<h1>Reservation Confirmation</h1>
+
+<div>
+    <h3>Your Reservation Details:</h3>
+    <ul>
+        <li><strong>Name:</strong> @(Model.User != null ? $"{Model.User.FirstName}, {Model.User.LastName}" : "N/A")</li>
+        <li><strong>Phone Number:</strong> @(Model.User != null ? Model.User.Phone : "N/A")</li>
+        <li><strong>Email Address:</strong> @(Model.User != null ? Model.User.Email : "N/A")</li>
+        <li><strong>Guest Count:</strong> @Model.GuestCount</li>
+        <li><strong>Notes:</strong> @Model.Notes</li>
+        <li><strong>Reservation Date and Time:</strong> @Model.ReservationDateTime</li>
+        <li><strong>Duration:</strong> @Model.Duration</li>
+        <li><strong>Sitting Type:</strong> @(Model.Sitting != null ? Model.Sitting.SittingType : "N/A")</li>
+        <li><strong>Sitting Start Time:</strong> @(Model.Sitting != null ? Model.Sitting.StartTime.ToString("hh\\:mm") : "N/A")</li>
+        <li><strong>Sitting End Time:</strong> @(Model.Sitting != null ? Model.Sitting.EndTime.ToString("hh\\:mm") : "N/A")</li>
+    </ul>
+</div>
+
+<a asp-action="Index" class="btn btn-primary">Back to Home</a>
